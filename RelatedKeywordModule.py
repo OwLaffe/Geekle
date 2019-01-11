@@ -10,6 +10,15 @@ import urllib.request
 from urllib  import parse
 
 def findRelatedKeywordsOfOne(keyword):
+    '''
+    주어진 키워드 하나의 연관 검색어를 반환해주는 함수입니다.
+    ARGS :
+        - keyword : 연관 검색어를 알고 싶은 문자열
+    RAISE :
+        - nothing.
+    RETURN :
+        - founded_keywords : 연관 검색어 리스트
+    '''
     founded_keywords = []
     base_url = "https://search.naver.com/search.naver?&query="
     url = base_url + parse.quote(keyword)
@@ -30,6 +39,17 @@ def findRelatedKeywordsOfOne(keyword):
     return founded_keywords
 
 def findRelatedKeywordsOfMany(keywords):
+
+    '''
+    주어진 키워드들의 연관 검색어를 반환해주는 함수입니다.
+    ARGS :
+        - keywords : 연관 검색어를 알고 싶은 문자열 리스트
+    RAISE :
+        - nothing.
+    RETURN :
+        - founded_keywords : 연관 검색어 리스트
+    '''
+
     result_keywords = []
     for keyword in keywords:
         print("==== " + keyword + " 연관 검색어 결과 ====")
