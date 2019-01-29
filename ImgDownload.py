@@ -1,5 +1,6 @@
 import urllib.request
 import os
+import uuid
 
 def downloadImg(link, dest, fileName):
     '''
@@ -16,7 +17,7 @@ def downloadImg(link, dest, fileName):
     '''
     if not os.path.isdir(dest):
         return False
-    if os.path.exsts(dest + "/" + fileName):
+    if os.path.exists(dest + "/" + fileName):
         return False
     urllib.request.urlretrieve(link, dest + "/" + fileName)
     return True
@@ -32,6 +33,9 @@ def getLink(link, dec="utf-8"):
         - imgLink : 이미지 다운받을 링크의 배열.
     '''
     html = urllib.request.urlopen(link).read().decode(dec)
+    f = open("ss.html", "w")
+    f.write(html)
+    f.close
     token = divToken(html)
     imgLink = []
     for t in token:
@@ -65,6 +69,18 @@ def divSrc(token):
     return token.split("src=\"")[1].split("\"")[0]
 
 # 사용 예시
+downName = 1
 imgLink = getLink("http://pguin.tistory.com/559?category=639235")
-for i in imgLink:
-    print(i)
+fileName = []
+
+for _ in range(0, len(imgLink)):
+    while True:
+        randomString = str(uuid.uuid4()).replace("-", "")
+        if randomString not in fileName:
+            fileName.append(randomString + ".png")
+            break
+
+for i in range(0, len(imgLink)):
+    print(imgLink[i])
+    if not downloadImg(imgLink[i], "/home/chj/workspace/PYTHON/Geekle/IMGEX", fileName[i]) :
+        print("Download Fail....")
